@@ -1,0 +1,26 @@
+name: Deploy to S3
+
+on:
+  push:
+    branches:
+      - main  # Trigger on push to main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/s3-github-role
+          role-session-name: GitHubActionsS3Deployment
+
+      - name: Deploy to S3
+        run: |
+          aws s3 sync ./ s3://${{ env.BUCKET_NAME }} --delete
+          # Replace YOUR_BUCKET_NAME with your actual S3 bucket name
+          # Use ./ if files are in the root, or ./public/ if in a subdirectory   
