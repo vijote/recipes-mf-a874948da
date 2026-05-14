@@ -8,7 +8,7 @@ on:
 env:
   AWS_REGION: ${{ vars.AWS_REGION }}
   AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
-  BUCKET_NAME: ${{ vars.BUCKET_NAME }}
+  AWS_BUCKET_NAME: ${{ vars.AWS_BUCKET_NAME }}
 
 jobs:
   deploy:
@@ -26,6 +26,6 @@ jobs:
 
       - name: Deploy to S3
         run: |
-          aws s3 sync ./ s3://${{ env.BUCKET_NAME }} --delete
-          # Replace YOUR_BUCKET_NAME with your actual S3 bucket name
+          aws s3 sync ./ s3://${{ env.AWS_BUCKET_NAME }} --delete
+          # Replace AWS_BUCKET_NAME with your actual S3 bucket name
           # Use ./ if files are in the root, or ./public/ if in a subdirectory   
