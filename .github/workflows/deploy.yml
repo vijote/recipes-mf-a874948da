@@ -5,6 +5,11 @@ on:
     branches:
       - main  # Trigger on push to main branch
 
+env:
+  AWS_REGION: ${{ vars.AWS_REGION }}
+  AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
+  BUCKET_NAME: ${{ vars.BUCKET_NAME }}
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
