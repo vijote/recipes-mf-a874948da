@@ -1,10 +1,5 @@
 import { federation } from '@module-federation/vite';
 module.exports = {
-  server: {
-    origin: 'http://localhost:2000',
-    port: 2000,
-  },
-  base: "http://localhost:2000",
   plugins: [
     federation({
       name: 'vite_provider',
