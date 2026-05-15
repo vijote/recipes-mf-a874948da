@@ -9,6 +9,7 @@ env:
   AWS_REGION: ${{ vars.AWS_REGION }}
   AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
   AWS_BUCKET_NAME: ${{ vars.AWS_BUCKET_NAME }}
+  AWS_GITHUB_ECS_ROLE_NAME: ${{ vars.AWS_GITHUB_ECS_ROLE_NAME }}
 
 jobs:
   deploy:
@@ -21,7 +22,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v6
         with:
           aws-region: ${{ env.AWS_REGION }}
-          role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/s3-github-role
+          role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/${{ env.AWS_GITHUB_ECS_ROLE_NAME }}
           role-session-name: GitHubActionsS3Deployment
 
       - name: Deploy to S3
