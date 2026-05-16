@@ -1,25 +1,17 @@
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 import { federation } from '@module-federation/vite';
-module.exports = {
+
+export default defineConfig({
   plugins: [
+    react(),
     federation({
-      name: 'vite_provider',
-      manifest: true,
-      remotes: {
-        esm_remote: {
-          type: "module",
-          name: "esm_remote",
-          entry: "https://[...]/remoteEntry.js",
-        },
-        var_remote: "var_remote@https://[...]/remoteEntry.js",
+      name: 'recipes',
+      filename: "remoteEntry.js",
+      exposes: {
+        "./RecipeList": "./src/RecipeList.tsx",
       },
-      shared: {
-        react: {
-          singleton: true,
-        },
-        'react/': {
-          singleton: true,
-        },
-      },
+      shared: ["react", "react/"]
     }),
   ],
   // Do you need to support build targets lower than chrome89?
@@ -27,4 +19,4 @@ module.exports = {
   build: {
     target: 'chrome89',
   },
-};
+});
