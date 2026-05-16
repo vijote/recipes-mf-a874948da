@@ -9,7 +9,7 @@ export default defineConfig({
       name: 'recipes',
       filename: "remoteEntry.js",
       exposes: {
-        "./RecipeList": "./src/RecipeList.tsx",
+        "./RecipeList": "./src/components/RecipeList.tsx",
       },
       shared: ["react", "react/"]
     }),
